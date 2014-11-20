@@ -24,12 +24,13 @@ function ScapeRange(setting) {
    * */
   var _this = this
   this.target = setting.target
-  aaa
   // direction
   this._dir = dirs[setting.from]
   this._min = setting.min || 0
   this._max = setting.max || 1
-  if (this._dir === undefined) this._dir = 3
+  if (this._dir === undefined) {
+    this._dir = 3
+  }
 
   var html = _.tpl(scapeHtml, {
     theme: setting.theme || 'default',
@@ -82,8 +83,12 @@ function ScapeRange(setting) {
 
 ScapeRange.prototype.setPos = function (x) {
   var maxPos = this._width
-  if (x < 0) x = 0
-  if (x > maxPos - this._thumbSize) x = maxPos - this._thumbSize
+  if (x < 0) {
+    x = 0
+  }
+  if (x > maxPos - this._thumbSize) {
+    x = maxPos - this._thumbSize
+  }
   var prop = this._dir % 2 === 1 ? 'width' : 'height'
   this._played.style[prop] = (x + this._thumbSize) + 'px'
   this._pos = x
