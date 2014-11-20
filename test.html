@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="scape.js"></script>
+  <link href="theme/style.css" rel="stylesheet">
+  <style>
+    .con{
+      width: 200px;height: 200px;
+    }
+  </style>
+</head>
+<body>
+<input type="range" max="200" min="50" step="10">
+<div id="divleft" class="con"></div>
+<div id="divtop" class="con"></div>
+<div id="divright" class="con"></div>
+<div id="divbottom" class="con"></div>
+<script>
+  leftRange = new ScapeRange({
+    target: document.getElementById('divleft'),
+    min: 2,
+    max: 10,
+    value: 5
+  })
+  leftRange.onChange(function(v){
+    console.log('left', v)
+  })
+
+  topRange = new ScapeRange({
+    target: document.getElementById('divtop'),
+    from: 'top'
+  })
+  topRange.onChange(function(v){
+    console.log('top', v)
+  })
+
+  rightRange = new ScapeRange({
+    target: document.getElementById('divright'),
+    from: 'right',
+    theme: 'meteor',
+    value: 0.1
+  })
+  rightRange.onChange(function(v){
+    console.log('right', v)
+  })
+
+  bottomRange = new ScapeRange({
+    target: document.getElementById('divbottom'),
+    from: 'bottom'
+  })
+  bottomRange.onChange(function(v){
+    console.log('bottom', v)
+  })
+</script>
+</body>
+</html>

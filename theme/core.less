@@ -1,0 +1,71 @@
+/* reset */
+.scape-range, .scape-range *{
+  border: none;
+  height: auto;
+  width: auto;
+  position: static;
+  background: none;
+  float: none;
+  transform: none;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+@k: scape-range-;
+
+.scape-range{
+  position: relative;
+  .@{k}thumb{
+    cursor: pointer;
+  }
+
+  &.@{k}top, &.@{k}bottom{
+    height: 100%;
+  }
+
+  &.@{k}left, &.@{k}right{
+    .@{k}played, .@{k}thumb {
+      height: 100%;
+    }
+  }
+  &.@{k}top, &.@{k}bottom{
+    .@{k}played, .@{k}thumb {
+      width: 100%;
+    }
+  }
+  .@{k}played, .@{k}thumb {
+    position: absolute;
+  }
+
+  &.@{k}left .@{k}thumb {
+    right: 0;
+  }
+  &.@{k}right .@{k}thumb {
+    left: 0;
+  }
+  &.@{k}top .@{k}thumb {
+    bottom: 0;
+  }
+  &.@{k}bottom .@{k}thumb {
+    top: 0;
+  }
+
+  &.@{k}left .@{k}played{
+    left: 0;
+  }
+  &.@{k}right .@{k}played{
+    right: 0;
+  }
+  &.@{k}bottom .@{k}played{
+    bottom: 0;
+  }
+  &.@{k}top .@{k}played{
+    top: 0;
+  }
+}
+

@@ -1,0 +1,68 @@
+/* reset */
+.scape-range,
+.scape-range * {
+  border: none;
+  height: auto;
+  width: auto;
+  position: static;
+  background: none;
+  float: none;
+  transform: none;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+.scape-range {
+  position: relative;
+}
+.scape-range .scape-range-thumb {
+  cursor: pointer;
+}
+.scape-range.scape-range-top,
+.scape-range.scape-range-bottom {
+  height: 100%;
+}
+.scape-range.scape-range-left .scape-range-played,
+.scape-range.scape-range-right .scape-range-played,
+.scape-range.scape-range-left .scape-range-thumb,
+.scape-range.scape-range-right .scape-range-thumb {
+  height: 100%;
+}
+.scape-range.scape-range-top .scape-range-played,
+.scape-range.scape-range-bottom .scape-range-played,
+.scape-range.scape-range-top .scape-range-thumb,
+.scape-range.scape-range-bottom .scape-range-thumb {
+  width: 100%;
+}
+.scape-range .scape-range-played,
+.scape-range .scape-range-thumb {
+  position: absolute;
+}
+.scape-range.scape-range-left .scape-range-thumb {
+  right: 0;
+}
+.scape-range.scape-range-right .scape-range-thumb {
+  left: 0;
+}
+.scape-range.scape-range-top .scape-range-thumb {
+  bottom: 0;
+}
+.scape-range.scape-range-bottom .scape-range-thumb {
+  top: 0;
+}
+.scape-range.scape-range-left .scape-range-played {
+  left: 0;
+}
+.scape-range.scape-range-right .scape-range-played {
+  right: 0;
+}
+.scape-range.scape-range-bottom .scape-range-played {
+  bottom: 0;
+}
+.scape-range.scape-range-top .scape-range-played {
+  top: 0;
+}
