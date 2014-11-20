@@ -7,52 +7,116 @@
   <link href="theme/style.css" rel="stylesheet">
   <style>
     .con{
-      width: 200px;height: 200px;
+      width: 200px;height: 50px;
+      margin: 20px 0;
+    }
+    .con.ver{
+      height: 200px;
+    }
+    .code-block{
+      display: block;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .code-block pre{
+      padding: 10px;
+      margin: 0;
     }
   </style>
 </head>
 <body>
-<input type="range" max="200" min="50" step="10">
-<div id="divleft" class="con"></div>
-<div id="divtop" class="con"></div>
-<div id="divright" class="con"></div>
-<div id="divbottom" class="con"></div>
-<script>
-  leftRange = new ScapeRange({
-    target: document.getElementById('divleft'),
-    min: 2,
-    max: 10,
-    value: 5
-  })
-  leftRange.onChange(function(v){
-    console.log('left', v)
-  })
-
-  topRange = new ScapeRange({
-    target: document.getElementById('divtop'),
-    from: 'top'
-  })
-  topRange.onChange(function(v){
-    console.log('top', v)
-  })
-
-  rightRange = new ScapeRange({
-    target: document.getElementById('divright'),
-    from: 'right',
-    theme: 'meteor',
-    value: 0.1
-  })
-  rightRange.onChange(function(v){
-    console.log('right', v)
-  })
-
-  bottomRange = new ScapeRange({
-    target: document.getElementById('divbottom'),
-    from: 'bottom'
-  })
-  bottomRange.onChange(function(v){
-    console.log('bottom', v)
-  })
+<code class="code-block"><pre>
+new ScapeRange({
+  target: target,
+  min: 2,
+  max: 10,
+  value: 5
+})
+</pre></code>
+<div id="default-left" class="con"></div>
+<script type="text/javascript">
+var target = document.getElementById('default-left')
+leftRange = new ScapeRange({
+  target: target,
+  min: 2,
+  max: 10,
+  value: 5
+})
+leftRange.onChange(function(v){
+  console.log('left', v)
+})
+</script>
+<code class="code-block"><pre>
+new ScapeRange({
+  target: target,
+  from: 'top'
+})
+</pre></code>
+<div id="default-top" class="con ver"></div>
+<script type="text/javascript">
+var target = document.getElementById('default-top')
+new ScapeRange({
+  target: target,
+  from: 'top'
+})
+</script>
+<code class="code-block"><pre>
+new ScapeRange({
+  target: target,
+  from: 'right',
+  value: 0.1
+})
+</pre></code>
+<div id="default-right" class="con"></div>
+<script type="text/javascript">
+var target = document.getElementById('default-right')
+new ScapeRange({
+  target: target,
+  from: 'right',
+  value: 0.1
+})
+</script>
+<code class="code-block"><pre>
+new ScapeRange({
+  target: target,
+  from: 'bottom'
+})
+</pre></code>
+<div id="default-bottom" class="con ver"></div>
+<script type="text/javascript">
+var target = document.getElementById('default-bottom')
+new ScapeRange({
+  target: target,
+  from: 'bottom'
+})
+</script>
+<code class="code-block"><pre>
+new ScapeRange({
+  target: target,
+  theme: 'meteor'
+})
+</pre></code>
+<div id="meteor-left" class="con"></div>
+<script type="text/javascript">
+var target = document.getElementById('meteor-left')
+new ScapeRange({
+  target: target,
+  theme: 'meteor'
+})
+</script>
+<code class="code-block"><pre>
+new ScapeRange({
+  target: target,
+  theme: 'minimal'
+})
+</pre></code>
+<div id="minimal-left" class="con"></div>
+<script type="text/javascript">
+var target = document.getElementById('minimal-left')
+new ScapeRange({
+  target: target,
+  theme: 'minimal'
+})
 </script>
 </body>
 </html>
