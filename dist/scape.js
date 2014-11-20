@@ -143,6 +143,7 @@ ScapeRange.prototype.onChange = function (callback) {
   this._changeCallbacks.push(callback)
 }
 window.ScapeRange = ScapeRange
+
 },{"./scape.htm.js":1,"./utils":3}],3:[function(require,module,exports){
 var _ = {
   tpl: function (str, dict) {

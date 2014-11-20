@@ -1,1 +1,0 @@
-module.exports = '<div class="scape-range scape-range-theme-{{theme}}  scape-range-{{from}}">\n  <div class="scape-range-played">\n    <div class="scape-range-thumb">\n      <div class="scape-range-thumb-inner"></div>\n    </div>\n  </div>\n</div>';
