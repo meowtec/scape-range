@@ -22,6 +22,7 @@ function ScapeRange(setting) {
    * theme
    * from
    * */
+  this._triggers = {}
   var _this = this
   this.target = setting.target
   // direction
@@ -57,7 +58,7 @@ function ScapeRange(setting) {
 
   var _mousemove = function (e) {
     e = e || window.event
-    _this.ommousemove(e)
+    _this._ommousemove(e)
   }
   _.on(node, 'mousedown', function (e) {
     e = e || window.event
@@ -78,7 +79,6 @@ function ScapeRange(setting) {
     _.off(window, 'mousemove', _mousemove)
   })
   this.val(setting.value || this._min)
-  this._changeCallbacks = []
 }
 
 ScapeRange.prototype.setPos = function (x) {
@@ -95,7 +95,7 @@ ScapeRange.prototype.setPos = function (x) {
   return x
 }
 
-ScapeRange.prototype.ommousemove = function (e) {
+ScapeRange.prototype._ommousemove = function (e) {
   e.preventDefault()
   var screenX = e.screenX,
     screenY = e.screenY
@@ -118,9 +118,7 @@ ScapeRange.prototype.ommousemove = function (e) {
   var val = newPos / (this._width - this._thumbSize) * (this._max - this._min) + this._min
   if(this._val !== val){
     this._val = val
-    for(var i = 0; i<this._changeCallbacks.length; i++){
-      this._changeCallbacks[i](this._val)
-    }
+    this.trigger('change')
   }
 }
 ScapeRange.prototype.val = function (value) {
@@ -136,7 +134,20 @@ ScapeRange.prototype.val = function (value) {
   this.setPos(pos)
   this._val = value
 }
-ScapeRange.prototype.onChange = function (callback) {
-  this._changeCallbacks.push(callback)
+ScapeRange.prototype.trigger = function (type, e) {
+  if(e === undefined){
+    e = this
+  }
+  var calls = this._triggers[type] || []
+  var callback
+  for(var i = 0; i < calls.length; i++){
+    callback = calls[i]
+    typeof callback === 'function' && callback.call(this, e)
+  }
 }
+ScapeRange.prototype.on = function (type, callback) {
+  var calls = this._triggers[type] = this._triggers[type] || []
+  calls.push(callback)
+}
+
 window.ScapeRange = ScapeRange
