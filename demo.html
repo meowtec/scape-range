@@ -42,9 +42,6 @@ leftRange = new ScapeRange({
   max: 10,
   value: 5
 })
-leftRange.onChange(function(v){
-  console.log('left', v)
-})
 </script>
 <code class="code-block"><pre>
 new ScapeRange({
@@ -117,6 +114,24 @@ new ScapeRange({
   target: target,
   theme: 'minimal'
 })
+</script>
+
+<div id="minimal-left-2" class="con"></div>
+<input id="hidden-input" type="hidden">
+<script type="text/javascript">
+  var target = document.getElementById('minimal-left-2')
+  var input = document.getElementById('hidden-input')
+  var scape = new ScapeRange({
+    target: target,
+    theme: 'minimal',
+    min: 10,
+    max: 100,
+    targetInput: input
+  })
+  scape.val(30) // val(value) 不会触发 change，如果需要触发，请 trigger('change) 
+  scape.on('change', function (){
+    console.log(this.val())
+  })
 </script>
 </body>
 </html>
