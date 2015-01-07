@@ -121,18 +121,26 @@ ScapeRange.prototype._ommousemove = function (e) {
     this.trigger('change')
   }
 }
-ScapeRange.prototype.val = function (value) {
-  var minVal = this._min,
-    maxVal = this._max
-  if(value<minVal){
-    value = minVal
+ScapeRange.prototype.val = function () {
+  if(!arguments.length){
+    return this._val
+  }else{
+    var value = arguments[0],
+      minVal = this._min,
+      maxVal = this._max
+    if(value < minVal){
+      value = minVal
+    }
+    if(value > maxVal){
+      value = maxVal
+    }
+    if(value <= maxVal && value >= minVal){
+      var pos = (value - minVal)/(maxVal - minVal)*(this._width - this._thumbSize)
+      this.setPos(pos)
+      this._val = value
+    }
+    return this
   }
-  if(value>maxVal){
-    value = maxVal
-  }
-  var pos = (value - minVal)/(maxVal - minVal)*(this._width - this._thumbSize)
-  this.setPos(pos)
-  this._val = value
 }
 ScapeRange.prototype.trigger = function (type, e) {
   if(e === undefined){
