@@ -16,6 +16,7 @@
   margin: 0;
   outline: none;
 }
+/* core */
 .scape-range {
   position: relative;
 }
@@ -66,6 +67,8 @@
 .scape-range.scape-range-top .scape-range-played {
   top: 0;
 }
+/* core end */
+/* themes */
 /* deafult */
 .scape-range-theme-default {
   background: #ddd;

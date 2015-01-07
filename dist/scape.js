@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = '<div class="scape-range scape-range-theme-{{theme}}  scape-range-{{from}}">\n  <div class="scape-range-played">\n    <div class="scape-range-thumb">\n      <div class="scape-range-thumb-inner"></div>\n    </div>\n  </div>\n</div>';
+module.exports = '<div class="scape-range scape-range-theme-{{theme}}  scape-range-{{from}}">\n  <div class="scape-range-played">\n    <div class="scape-range-thumb">\n      <div class="scape-range-thumb-inner"></div>\n    </div>\n  </div>\n</div>\n';
 },{}],2:[function(require,module,exports){
 var scapeHtml = require('./scape.htm.js')
 var _ = require('./utils')
@@ -25,8 +25,10 @@ function ScapeRange(setting) {
    * theme
    * from
    * */
+  this._triggers = {}
   var _this = this
   this.target = setting.target
+  this._input = setting.targetInput || {}
   // direction
   this._dir = dirs[setting.from]
   this._min = setting.min || 0
@@ -60,7 +62,7 @@ function ScapeRange(setting) {
 
   var _mousemove = function (e) {
     e = e || window.event
-    _this.ommousemove(e)
+    _this._ommousemove(e)
   }
   _.on(node, 'mousedown', function (e) {
     e = e || window.event
@@ -81,7 +83,6 @@ function ScapeRange(setting) {
     _.off(window, 'mousemove', _mousemove)
   })
   this.val(setting.value || this._min)
-  this._changeCallbacks = []
 }
 
 ScapeRange.prototype.setPos = function (x) {
@@ -98,7 +99,7 @@ ScapeRange.prototype.setPos = function (x) {
   return x
 }
 
-ScapeRange.prototype.ommousemove = function (e) {
+ScapeRange.prototype._ommousemove = function (e) {
   e.preventDefault()
   var screenX = e.screenX,
     screenY = e.screenY
@@ -121,27 +122,48 @@ ScapeRange.prototype.ommousemove = function (e) {
   var val = newPos / (this._width - this._thumbSize) * (this._max - this._min) + this._min
   if(this._val !== val){
     this._val = val
-    for(var i = 0; i<this._changeCallbacks.length; i++){
-      this._changeCallbacks[i](this._val)
+    this._input.value = val
+    this.trigger('change')
+  }
+}
+ScapeRange.prototype.val = function () {
+  if(!arguments.length){
+    return this._val
+  }else{
+    var value = arguments[0],
+      minVal = this._min,
+      maxVal = this._max
+    if(value < minVal){
+      value = minVal
     }
+    if(value > maxVal){
+      value = maxVal
+    }
+    if(value <= maxVal && value >= minVal){
+      var pos = (value - minVal)/(maxVal - minVal)*(this._width - this._thumbSize)
+      this.setPos(pos)
+      this._val = value
+      this._input.value = value
+    }
+    return this
   }
 }
-ScapeRange.prototype.val = function (value) {
-  var minVal = this._min,
-    maxVal = this._max
-  if(value<minVal){
-    value = minVal
+ScapeRange.prototype.trigger = function (type, e) {
+  if(e === undefined){
+    e = this
   }
-  if(value>maxVal){
-    value = maxVal
+  var calls = this._triggers[type] || []
+  var callback
+  for(var i = 0; i < calls.length; i++){
+    callback = calls[i]
+    typeof callback === 'function' && callback.call(this, e)
   }
-  var pos = (value - minVal)/(maxVal - minVal)*(this._width - this._thumbSize)
-  this.setPos(pos)
-  this._val = value
 }
-ScapeRange.prototype.onChange = function (callback) {
-  this._changeCallbacks.push(callback)
+ScapeRange.prototype.on = function (type, callback) {
+  var calls = this._triggers[type] = this._triggers[type] || []
+  calls.push(callback)
 }
+
 window.ScapeRange = ScapeRange
 
 },{"./scape.htm.js":1,"./utils":3}],3:[function(require,module,exports){
