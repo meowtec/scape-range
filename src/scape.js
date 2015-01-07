@@ -25,6 +25,7 @@ function ScapeRange(setting) {
   this._triggers = {}
   var _this = this
   this.target = setting.target
+  this._input = setting.targetInput || {}
   // direction
   this._dir = dirs[setting.from]
   this._min = setting.min || 0
@@ -118,6 +119,7 @@ ScapeRange.prototype._ommousemove = function (e) {
   var val = newPos / (this._width - this._thumbSize) * (this._max - this._min) + this._min
   if(this._val !== val){
     this._val = val
+    this._input.value = val
     this.trigger('change')
   }
 }
@@ -138,6 +140,7 @@ ScapeRange.prototype.val = function () {
       var pos = (value - minVal)/(maxVal - minVal)*(this._width - this._thumbSize)
       this.setPos(pos)
       this._val = value
+      this._input.value = value
     }
     return this
   }
