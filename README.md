@@ -1,4 +1,4 @@
 Scape Range
 ===========
 
-sea [demo.html](http://meowtec.github.io/demo/scape-range/demo.html)
+查看 [demo.html](http://meowtec.github.io/demo/scape-range/demo.html)
