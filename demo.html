@@ -128,7 +128,7 @@ new ScapeRange({
     max: 100,
     targetInput: input
   })
-  scape.val(30) // val(value) 不会触发 change，如果需要触发，请 trigger('change) 
+  scape.val(30) // val(value) 不会触发 change，如果需要触发，请 trigger('change')
   scape.on('change', function (){
     console.log(this.val())
   })
