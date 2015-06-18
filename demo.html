@@ -43,6 +43,8 @@ leftRange = new ScapeRange({
   value: 5
 })
 </script>
+
+
 <code class="code-block"><pre>
 new ScapeRange({
   target: target,
@@ -57,6 +59,8 @@ new ScapeRange({
   from: 'top'
 })
 </script>
+
+
 <code class="code-block"><pre>
 new ScapeRange({
   target: target,
@@ -73,6 +77,8 @@ new ScapeRange({
   value: 0.1
 })
 </script>
+
+
 <code class="code-block"><pre>
 new ScapeRange({
   target: target,
@@ -87,6 +93,8 @@ new ScapeRange({
   from: 'bottom'
 })
 </script>
+
+
 <code class="code-block"><pre>
 new ScapeRange({
   target: target,
@@ -101,6 +109,8 @@ new ScapeRange({
   theme: 'meteor'
 })
 </script>
+
+
 <code class="code-block"><pre>
 new ScapeRange({
   target: target,
@@ -116,22 +126,51 @@ new ScapeRange({
 })
 </script>
 
+
+<code class="code-block"><pre>
+var target = document.getElementById('minimal-left-2')
+var input = document.getElementById('minimal-left-2-input')
+var text = document.getElementById('minimal-left-2-text')
+var scape = new ScapeRange({
+  target: target,
+  theme: 'minimal',
+  min: 10,
+  max: 100,
+  targetInput: input, // 绑定的 input
+  value: 20 // 初始值 20
+})
+scape.on('change', function (){
+  text.innerHTML = this.val()
+})
+scape.trigger('change');
+setTimeout(function() {
+  scape.val(30).trigger('change') // val(value) 不会触发 change，如果需要触发，请 trigger('change')
+}, 1000)
+</pre></code>
 <div id="minimal-left-2" class="con"></div>
-<input id="hidden-input" type="hidden">
+<input id="minimal-left-2-input" type="text">
+现在的值是：<span id="minimal-left-2-text"></span>
 <script type="text/javascript">
+(function(){
   var target = document.getElementById('minimal-left-2')
-  var input = document.getElementById('hidden-input')
+  var input = document.getElementById('minimal-left-2-input')
+  var text = document.getElementById('minimal-left-2-text')
   var scape = new ScapeRange({
     target: target,
     theme: 'minimal',
     min: 10,
     max: 100,
-    targetInput: input
+    targetInput: input, // 绑定的 <input>
+    value: 20 // 初始值 20
   })
-  scape.val(30) // val(value) 不会触发 change，如果需要触发，请 trigger('change')
   scape.on('change', function (){
-    console.log(this.val())
+    text.innerHTML = this.val()
   })
+  scape.trigger('change');
+  setTimeout(function() {
+    scape.val(30).trigger('change') // val(value) 不会触发 change，如果需要触发，请 trigger('change')
+  }, 1000)
+})()
 </script>
 </body>
 </html>
